@@ -22,6 +22,13 @@ export class ProductService {
             .catch(this.handleError);
     }
 
+    getProduct(): Observable<IProduct> {
+        return this._http.get(this._productUrl)
+            .map((response: Response) => <IProduct>response.json())
+            .do(data => console.log('All: ' + JSON.stringify(data)))
+            .catch(this.handleError);
+    }
+
     handleError(error: Response) {
         console.error(error);
         return Observable.throw(error.json().error || 'Server error');
